@@ -1,0 +1,256 @@
+.about_hero {
+  background: url("../assets/hero/about-bg.jpg") no-repeat center center;
+  background-size: cover;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.about_hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.about_hero .hero_content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  animation: fadeIn 1.5s ease;
+}
+
+.about_hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--yellow);
+}
+
+.about_hero p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.our_story {
+  background-color: white;
+}
+
+.story_image {
+  background: url("../assets/about/story.jpg") no-repeat center center;
+  background-size: cover;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.philosophy_image {
+  background: url("../assets/about/philosophy.jpg") no-repeat center center;
+  background-size: cover;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.content_box {
+  padding: 20px;
+}
+
+.content_box h2 {
+  color: var(--light-red);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.content_box .lead {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.values_section {
+  padding: 80px 0;
+  background-color: var(--light-grey);
+}
+
+.values_section h2 {
+  color: var(--light-red);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.value_card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.value_card:hover {
+  transform: translateY(-10px);
+}
+
+.value_icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--yellow);
+  color: var(--light-black);
+  font-size: 2rem;
+}
+
+.value_card h3 {
+  font-family: var(--oswald-font);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.team_section {
+  background-color: white;
+}
+
+.team_section h2 {
+  color: var(--light-red);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.team_card {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.member_img {
+  height: 250px;
+  overflow: hidden;
+}
+
+.member_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.team_card:hover .member_img img {
+  transform: scale(1.1);
+}
+
+.member_info {
+  padding: 20px;
+  text-align: center;
+}
+
+.member_info h3 {
+  font-family: var(--oswald-font);
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.member_info h5 {
+  color: var(--light-red);
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.cta_section {
+  padding: 80px 0;
+  background: url("../assets/parallax/bg.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  color: white;
+}
+
+.cta_section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.cta_section h2, .cta_section p {
+  position: relative;
+}
+
+.cta_section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta_section .order_now {
+  position: relative;
+  padding: 12px 30px;
+}
+
+@media (max-width: 992px) {
+  .about_hero h1 {
+    font-size: 2.8rem;
+  }
+  
+  .content_box h2,
+  .values_section h2,
+  .team_section h2,
+  .cta_section h2 {
+    font-size: 2.2rem;
+  }
+  
+  .story_image,
+  .philosophy_image {
+    height: 350px;
+  }
+  
+  .value_icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.7rem;
+  }
+  
+  .value_card h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about_hero {
+    height: 50vh;
+  }
+  
+  .about_hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .about_hero p {
+    font-size: 1rem;
+  }
+  
+  .content_box h2,
+  .values_section h2,
+  .team_section h2,
+  .cta_section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .story_image,
+  .philosophy_image {
+    height: 250px;
+  }
+  
+  .member_img {
+    height: 200px;
+  }
+}

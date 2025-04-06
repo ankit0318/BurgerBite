@@ -1,0 +1,213 @@
+.service_hero {
+  background: url("../assets/hero/service-bg.jpg") no-repeat center center;
+  background-size: cover;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.service_hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.service_hero .hero_content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  animation: fadeIn 1.5s ease;
+}
+
+.service_hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--yellow);
+}
+
+.service_hero p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.service_grid {
+  background-color: var(--light-grey);
+  padding: 80px 0;
+}
+
+.section_title {
+  color: var(--light-red);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.section_subtitle {
+  color: var(--grey);
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.service_card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service_card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.service_icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--yellow);
+}
+
+.service_icon i {
+  font-size: 2.5rem;
+  color: var(--light-black);
+}
+
+.service_card .card-title {
+  font-family: var(--oswald-font);
+  font-size: 1.6rem;
+  color: var(--light-black);
+}
+
+.service_card .card-text {
+  color: var(--grey);
+}
+
+.why_choose_us {
+  padding: 80px 0;
+  background-color: #fff;
+}
+
+.why_choose_us h2 {
+  color: var(--light-black);
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature_icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--light-red);
+  color: white;
+  font-size: 1.5rem;
+}
+
+.feature_item h4 {
+  font-family: var(--oswald-font);
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.image_wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.image_box {
+  background: url("../assets/about/service-feature.jpg") no-repeat center center;
+  background-size: cover;
+  border-radius: 10px;
+  width: 100%;
+  height: 450px;
+  position: relative;
+}
+
+.cta_section {
+  padding: 80px 0;
+  background: url("../assets/parallax/bg.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  color: white;
+}
+
+.cta_section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.cta_section h2, .cta_section p {
+  position: relative;
+}
+
+.cta_section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta_section .order_now {
+  position: relative;
+  padding: 12px 30px;
+}
+
+@media (max-width: 992px) {
+  .service_hero h1 {
+    font-size: 2.8rem;
+  }
+  
+  .section_title,
+  .why_choose_us h2,
+  .cta_section h2 {
+    font-size: 2.2rem;
+  }
+  
+  .service_icon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .service_icon i {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .service_hero {
+    height: 50vh;
+  }
+  
+  .service_hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .service_hero p {
+    font-size: 1rem;
+  }
+  
+  .section_title,
+  .why_choose_us h2,
+  .cta_section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .image_box {
+    height: 350px;
+  }
+}
