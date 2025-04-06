@@ -42,7 +42,7 @@ function Header() {
     <header>
       <Navbar collapseOnSelect expand="lg" className={`${nav === true? "sticky": ""}`}>
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <div className="logo" >
               <img src={Logo} alt="Logo" className="img-fluid " />
               <span id="span1">Burger</span><span id="span2">Bite</span>
