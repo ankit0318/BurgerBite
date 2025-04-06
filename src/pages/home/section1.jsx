@@ -7,7 +7,7 @@ function Section1() {
   return (
     <section className="hero_section">
       <div className="overlay"></div>
-      <video src={burger} autoPlay loop muted playsInline className="video" poster={fallbackImage} />
+
       <div className=" hero_main text-center img-fluid">
         <h1>Cheese Lovers, Rejoice!</h1>
         <h2 >Double the Cheese, Double the Flavor</h2>
