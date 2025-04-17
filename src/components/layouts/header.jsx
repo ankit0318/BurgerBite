@@ -195,10 +195,14 @@ function Header() {
                           <strong>₹{totalPrice.toFixed(2)}</strong>
                         </div>
                         <div className="d-grid gap-2">
-                          <Link to="/cart" className="btn view-cart-btn ">
+                          <Link
+                            to="/cart"
+                            className="btn view-cart-btn"
+                            style={{ fontWeight: "bold" }}
+                          >
                             View Cart
                           </Link>
-                          <Link to="/checkout" className="btn checkout-btn">
+                          <Link to="/checkout" className="btn checkout-btn"  style={{ fontWeight: "bold" }}>
                             Checkout
                           </Link>
                         </div>
