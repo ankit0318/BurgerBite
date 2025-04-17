@@ -1,5 +1,5 @@
 .about_hero {
-  background: url("../assets/hero/about-bg.jpg") no-repeat center center;
+  background: url("../assets/hero/bg4.jpg") no-repeat center center;
   background-size: cover;
   height: 60vh;
   display: flex;
@@ -183,7 +183,8 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
-.cta_section h2, .cta_section p {
+.cta_section h2,
+.cta_section p {
   position: relative;
 }
 
@@ -201,25 +202,25 @@
   .about_hero h1 {
     font-size: 2.8rem;
   }
-  
+
   .content_box h2,
   .values_section h2,
   .team_section h2,
   .cta_section h2 {
     font-size: 2.2rem;
   }
-  
+
   .story_image,
   .philosophy_image {
     height: 350px;
   }
-  
+
   .value_icon {
     width: 70px;
     height: 70px;
     font-size: 1.7rem;
   }
-  
+
   .value_card h3 {
     font-size: 1.5rem;
   }
@@ -229,27 +230,27 @@
   .about_hero {
     height: 50vh;
   }
-  
+
   .about_hero h1 {
     font-size: 2.2rem;
   }
-  
+
   .about_hero p {
     font-size: 1rem;
   }
-  
+
   .content_box h2,
   .values_section h2,
   .team_section h2,
   .cta_section h2 {
     font-size: 1.8rem;
   }
-  
+
   .story_image,
   .philosophy_image {
     height: 250px;
   }
-  
+
   .member_img {
     height: 200px;
   }

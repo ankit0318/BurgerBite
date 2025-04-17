@@ -1,5 +1,5 @@
 .service_hero {
-  background: url("../assets/hero/service-bg.jpg") no-repeat center center;
+  background: url("../assets/hero/bg4.jpg") no-repeat center center;
   background-size: cover;
   height: 60vh;
   display: flex;
@@ -153,7 +153,8 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
-.cta_section h2, .cta_section p {
+.cta_section h2,
+.cta_section p {
   position: relative;
 }
 
@@ -171,18 +172,18 @@
   .service_hero h1 {
     font-size: 2.8rem;
   }
-  
+
   .section_title,
   .why_choose_us h2,
   .cta_section h2 {
     font-size: 2.2rem;
   }
-  
+
   .service_icon {
     width: 70px;
     height: 70px;
   }
-  
+
   .service_icon i {
     font-size: 2rem;
   }
@@ -192,21 +193,21 @@
   .service_hero {
     height: 50vh;
   }
-  
+
   .service_hero h1 {
     font-size: 2.2rem;
   }
-  
+
   .service_hero p {
     font-size: 1rem;
   }
-  
+
   .section_title,
   .why_choose_us h2,
   .cta_section h2 {
     font-size: 1.8rem;
   }
-  
+
   .image_box {
     height: 350px;
   }
