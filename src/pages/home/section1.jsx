@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import fallbackImage from "../../assets/hero/bg.jpg";
 import deliciousBurger from "../../assets/hero/Delicious Food Image.jfif";
@@ -6,27 +6,75 @@ import backgroundImage from "../../assets/hero/bg4.jpg";
 import priceBadge from "../../assets/hero/price-badge-yellow.png";
 
 function Section1() {
-  // Add a simple fade-in animation effect on load
+  // State to track background image loading
+  const [bgLoaded, setBgLoaded] = useState(false);
+  const sectionRef = useRef(null);
+  const bgImageRef = useRef(null);
+
+  // Add image loading optimizations
   useEffect(() => {
-    const heroContent = document.querySelector('.hero_main');
-    const burgerImage = document.querySelector('.burger-image-container');
-    const thumbnails = document.querySelectorAll('.burger-thumbnail');
-    
-    if (heroContent) heroContent.classList.add('animate-fade-in');
-    if (burgerImage) burgerImage.classList.add('animate-slide-in');
-    
+    // DOM elements animation
+    const heroContent = document.querySelector(".hero_main");
+    const burgerImage = document.querySelector(".burger-image-container");
+    const thumbnails = document.querySelectorAll(".burger-thumbnail");
+
+    if (heroContent) heroContent.classList.add("animate-fade-in");
+    if (burgerImage) burgerImage.classList.add("animate-slide-in");
+
     thumbnails.forEach((thumbnail, index) => {
       setTimeout(() => {
-        thumbnail.classList.add('animate-pop');
+        thumbnail.classList.add("animate-pop");
       }, 200 * index);
     });
+
+    // Implement Intersection Observer to load the image only when section is about to come into view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          // Create a new image to preload
+          const img = new Image();
+
+          // Setup load event before setting src
+          img.onload = () => {
+            setBgLoaded(true);
+          };
+
+          // Use modern format with fallback
+          // First check if browser supports WebP by setting it
+          img.src = backgroundImage;
+
+          // Disconnect observer once image starts loading
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    ); // Start loading 200px before the element comes into view
+
+    const sectionElement = sectionRef.current;
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.disconnect();
+      }
+    };
   }, []);
+
+  // Function to handle background image loading
+  const handleBackgroundLoad = () => {
+    if (bgImageRef.current) {
+      setBgLoaded(true);
+    }
+  };
 
   return (
     <section
-      className="hero_section"
+      ref={sectionRef}
+      className={`hero_section ${bgLoaded ? "bg-loaded" : "bg-loading"}`}
       style={{
-        background: `url(${backgroundImage}) center/cover no-repeat`,
         height: "100vh",
         display: "flex",
         alignItems: "center",
@@ -34,6 +82,50 @@ function Section1() {
         overflow: "hidden",
       }}
     >
+      {/* Hidden image preloader */}
+      <img
+        ref={bgImageRef}
+        src={backgroundImage}
+        alt="background"
+        onLoad={handleBackgroundLoad}
+        style={{ display: "none" }}
+      />
+
+      {/* Blurred small image that shows immediately while main image loads */}
+      <div
+        className="background-placeholder"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `url(${fallbackImage}) center/cover no-repeat`,
+          filter: "blur(10px)",
+          transform: "scale(1.1)", // Prevents blur edges from showing
+          opacity: bgLoaded ? 0 : 1,
+          transition: "opacity 0.5s ease-out",
+        }}
+      />
+
+      {/* Main background image - loaded with JavaScript */}
+      <div
+        className="background-image"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: bgLoaded
+            ? `url(${backgroundImage}) center/cover no-repeat`
+            : "none",
+          opacity: bgLoaded ? 1 : 0,
+          transition: "opacity 0.5s ease-in",
+          willChange: "opacity", // Performance hint for browsers
+        }}
+      />
+
       {/* Gradient overlay for better text contrast */}
       <div
         style={{
@@ -42,59 +134,73 @@ function Section1() {
           left: 0,
           right: 0,
           bottom: 0,
-          background: "linear-gradient(to right, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.4) 100%)",
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.4) 100%)",
           zIndex: 1,
         }}
       ></div>
 
       {/* Decorative elements */}
-      <div className="decorative-circles" style={{
-        position: "absolute",
-        top: "5%",
-        left: "5%",
-        width: "200px",
-        height: "200px",
-        borderRadius: "50%",
-        border: "2px dashed rgba(255,255,255,0.1)",
-        zIndex: 1,
-      }}></div>
-      
-      <div className="decorative-circles" style={{
-        position: "absolute",
-        bottom: "15%",
-        right: "10%",
-        width: "150px",
-        height: "150px",
-        borderRadius: "50%",
-        border: "2px dashed rgba(255,255,255,0.1)",
-        zIndex: 1,
-      }}></div>
+      <div
+        className="decorative-circles"
+        style={{
+          position: "absolute",
+          top: "5%",
+          left: "5%",
+          width: "200px",
+          height: "200px",
+          borderRadius: "50%",
+          border: "2px dashed rgba(255,255,255,0.1)",
+          zIndex: 1,
+        }}
+      ></div>
+
+      <div
+        className="decorative-circles"
+        style={{
+          position: "absolute",
+          bottom: "15%",
+          right: "10%",
+          width: "150px",
+          height: "150px",
+          borderRadius: "50%",
+          border: "2px dashed rgba(255,255,255,0.1)",
+          zIndex: 1,
+        }}
+      ></div>
 
       <Container fluid style={{ position: "relative", zIndex: 2 }}>
         <Row className="align-items-center">
           {/* Left Content Column */}
           <Col lg={6} md={6} className="ps-md-5 ps-lg-5">
-            <div className="hero_main text-left" style={{
-              opacity: 0,
-              transform: "translateY(20px)",
-              transition: "opacity 0.8s ease, transform 0.8s ease",
-            }}>
+            <div
+              className="hero_main text-left"
+              style={{
+                opacity: 0,
+                transform: "translateY(20px)",
+                transition: "opacity 0.8s ease, transform 0.8s ease",
+              }}
+            >
               {/* Special badge */}
-              <div className="special-tag" style={{
-                display: "inline-block",
-                background: "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
-                color: "white",
-                padding: "8px 16px",
-                borderRadius: "20px",
-                fontSize: "0.9rem",
-                fontWeight: "600",
-                marginBottom: "1.5rem",
-                boxShadow: "0 4px 10px rgba(243, 156, 18, 0.3)",
-                letterSpacing: "1px",
-              }}>
+              <div
+                className="special-tag"
+                style={{
+                  display: "inline-block",
+                  background:
+                    "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
+                  color: "white",
+                  padding: "8px 16px",
+                  borderRadius: "20px",
+                  fontSize: "0.9rem",
+                  fontWeight: "600",
+                  marginBottom: "1.5rem",
+                  boxShadow: "0 4px 10px rgba(243, 156, 18, 0.3)",
+                  letterSpacing: "1px",
+                }}
+              >
                 #1 RATED BURGERS
               </div>
-              
+
               <h1
                 style={{
                   fontSize: "clamp(3rem, 5vw, 4.5rem)",
@@ -109,20 +215,26 @@ function Section1() {
               >
                 THE ULTIMATE
                 <br />
-                <span style={{
-                  background: "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
-                }}>
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    display: "inline-block",
+                  }}
+                >
                   BURGER HAVEN
                 </span>
-                <div style={{
-                  width: "80px",
-                  height: "4px",
-                  background: "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
-                  marginTop: "10px",
-                }}></div>
+                <div
+                  style={{
+                    width: "80px",
+                    height: "4px",
+                    background:
+                      "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
+                    marginTop: "10px",
+                  }}
+                ></div>
               </h1>
 
               <p
@@ -146,7 +258,8 @@ function Section1() {
                 <button
                   className="order_now"
                   style={{
-                    background: "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
+                    background:
+                      "linear-gradient(90deg, #e67e22 0%, #f39c12 100%)",
                     color: "#ffffff",
                     fontSize: "clamp(0.9rem, 1vw, 1rem)",
                     padding: "15px 32px",
@@ -163,11 +276,13 @@ function Section1() {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-3px)";
-                    e.currentTarget.style.boxShadow = "0px 12px 20px rgba(230, 126, 34, 0.4)";
+                    e.currentTarget.style.boxShadow =
+                      "0px 12px 20px rgba(230, 126, 34, 0.4)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0px 8px 15px rgba(230, 126, 34, 0.3)";
+                    e.currentTarget.style.boxShadow =
+                      "0px 8px 15px rgba(230, 126, 34, 0.3)";
                   }}
                 >
                   Order Now
@@ -189,7 +304,8 @@ function Section1() {
                     letterSpacing: "1px",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "rgba(230, 126, 34, 0.1)";
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(230, 126, 34, 0.1)";
                     e.currentTarget.style.transform = "translateY(-3px)";
                   }}
                   onMouseLeave={(e) => {
@@ -202,73 +318,9 @@ function Section1() {
               </div>
             </div>
           </Col>
-          
-          {/* Right Content Column - Featured Burger Image */
-          
-          
-          }
-          
-        </Row>
 
-        {/* Burger thumbnails row */}
-        {/* <Row
-          className="position-absolute bottom-0 start-0 end-0 mb-5 mx-0 justify-content-center"
-          style={{ zIndex: 3 }}
-        >
-          <Col xs={11} lg={10}>
-            <div className="d-flex justify-content-between" style={{
-              background: "rgba(0,0,0,0.5)",
-              backdropFilter: "blur(10px)",
-              borderRadius: "15px",
-              padding: "15px",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-            }}>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <div
-                  key={item}
-                  className="burger-thumbnail"
-                  style={{
-                    width: "clamp(70px, 10vw, 90px)",
-                    height: "clamp(70px, 10vw, 90px)",
-                    borderRadius: "12px",
-                    overflow: "hidden",
-                    border: "2px solid rgba(255,255,255,0.2)",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    margin: "0 5px",
-                    opacity: 0,
-                    transform: "scale(0.9)",
-                    position: "relative",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.1)";
-                    e.currentTarget.style.borderColor = "#e67e22";
-                    e.currentTarget.style.boxShadow = "0 5px 15px rgba(230, 126, 34, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  <img
-                    src={`../../assets/menu/burger-1${item}.jpg`}
-                    alt={`Burger ${item}`}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = fallbackImage;
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </Col>
-        </Row> */}
+          {/* Right Content Column - Featured Burger Image */}
+        </Row>
       </Container>
 
       {/* CSS animations */}
